@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import { CalendarApp } from './CalendarApp';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CalendarApp></CalendarApp>
-  </React.StrictMode>,
+    <CalendarApp />,
   document.getElementById('root')
 );
 
