@@ -29,7 +29,10 @@ export const CalendarModal = () => {
         //   onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+        //   timepo de cierre en miliseg
+          closeTimeoutMS={ 200 }
+          className="modal"
+          overlayClassName="modal-fondo"
         >
             <h1>Hola Mundo</h1>
         </Modal>
