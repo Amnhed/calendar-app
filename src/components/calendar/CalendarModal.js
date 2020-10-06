@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import moment from 'moment';
+import moment, { invalid } from 'moment';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content : {
@@ -27,6 +28,7 @@ export const CalendarModal = () => {
     const [isOpen, setIsOpen] = useState(true)
     const [dateStart, setDateStart] = useState( now.toDate() )
     const [dateEnd, setDateEnd] = useState( end_date.toDate() )
+    const [titleValid, setTitleValid] = useState(true)
     const [formValues, setFormValues] = useState({
         title: 'Evento',
         notes: '',
@@ -34,7 +36,7 @@ export const CalendarModal = () => {
         end: end_date.toDate()
     })
 
-    const { notes,title } = formValues
+    const { notes, title, start, end } = formValues
     // del evento obtengo el target
     const handleInputChange = ({ target }) => {
         // ...formValues -> Es para mantener todos los demas valores del objeto formValues
@@ -66,7 +68,20 @@ export const CalendarModal = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        console.log(formValues);
+        // convierto las fecha a un elemento moment
+        const momentStart = moment( start )
+        const momentEnd = moment( end )
+
+        if( momentStart.isSameOrAfter( momentEnd ) ){
+            return Swal.fire('Error','la fecha final debe ser mayor a la fecha de inicio','error')
+            
+        }
+        if(  title.trim().length < 2 ){
+            return setTitleValid(false)
+        }
+
+        setTitleValid(true)
+        closeModal()
     }
 
     return (
@@ -111,7 +126,8 @@ export const CalendarModal = () => {
                     <label>Titulo y notas</label>
                     <input 
                         type="text" 
-                        className="form-control"
+                        // si no esta en verdadero
+                        className={ `form-control ${ !titleValid && 'is-invalid ' } ` }
                         placeholder="Título del evento"
                         name="title"
                         autoComplete="off"
