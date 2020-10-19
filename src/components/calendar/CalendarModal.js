@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import moment, { invalid } from 'moment';
+import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux'
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2';
+import { uiCloseModal } from '../../actions/ui';
 
 const customStyles = {
     content : {
@@ -24,8 +26,10 @@ const customStyles = {
 
 
 export const CalendarModal = () => {
+    const dispatch = useDispatch();
 
-    const [isOpen, setIsOpen] = useState(true)
+    // const [isOpen, setIsOpen] = useState(true)
+    const { modalOpen } = useSelector( state => state.ui );
     const [dateStart, setDateStart] = useState( now.toDate() )
     const [dateEnd, setDateEnd] = useState( end_date.toDate() )
     const [titleValid, setTitleValid] = useState(true)
@@ -47,7 +51,8 @@ export const CalendarModal = () => {
     }
 
     const closeModal = () => {
-        setIsOpen(false)
+        dispatch( uiCloseModal() )
+        //setIsOpen(false)
     }
 
     const hanldeStartDateChange = (e) => {
@@ -86,7 +91,8 @@ export const CalendarModal = () => {
 
     return (
         <Modal
-          isOpen={ isOpen }
+        isOpen={ modalOpen }
+        //   isOpen={ isOpen }
         //   onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           style={customStyles}

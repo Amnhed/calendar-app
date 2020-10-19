@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useDispatch } from 'react-redux'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 
@@ -9,11 +10,13 @@ import { CalendarModal } from './CalendarModal'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es'
+import { uiOpenModal } from '../../actions/ui'
 
 
 moment.locale('es')
 
 const localizer = momentLocalizer(moment)
+
 
 
 const myEventsList = [{
@@ -31,16 +34,22 @@ const myEventsList = [{
 
 export const CalendarScreen = () => {
 
+    const dispatch = useDispatch();
+
+
     const [ lastView, setLastView ] = useState( localStorage.getItem('lastView') || 'month' );
     // Si el lastview esta vacio asigna month
 
     const onDoubleClick = (e) => {
         console.log(e);
+        dispatch( uiOpenModal() )
+        console.log('doble clicl');
     }
 
     const onSelectEvent = (e) => {
         console.log('on selected');
         console.log(e);
+        //dispatch( uiOpenModal() )
     }
 
     const onViewChange = (e) => {
