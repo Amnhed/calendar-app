@@ -11,6 +11,7 @@ import { CalendarModal } from './CalendarModal'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es'
 import { uiOpenModal } from '../../actions/ui'
+import { eventSetActive } from '../../actions/events'
 
 
 moment.locale('es')
@@ -49,6 +50,7 @@ export const CalendarScreen = () => {
     const onSelectEvent = (e) => {
         console.log('on selected');
         console.log(e);
+        dispatch( eventSetActive(e) )
         //dispatch( uiOpenModal() )
     }
 
