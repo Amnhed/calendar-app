@@ -89,7 +89,10 @@ export const CalendarModal = () => {
         dispatch( eventAddNew({
             ...formValues,
             id: new Date().getTime(),
-
+            user: {
+                _id: '456',
+                name: 'User456'
+            }
         }) )
 
         setTitleValid(true)
