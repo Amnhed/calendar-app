@@ -45,14 +45,14 @@ export const CalendarScreen = () => {
     // Si el lastview esta vacio asigna month
 
     const onDoubleClick = (e) => {
-        console.log(e);
+        // console.log(e);
         dispatch( uiOpenModal() )
 
     }
 
     const onSelectEvent = (e) => {
-        console.log('on selected');
-        console.log(e);
+        // console.log('on selected');
+        // console.log(e);
         dispatch( eventSetActive(e) )
 
         //dispatch( uiOpenModal() )

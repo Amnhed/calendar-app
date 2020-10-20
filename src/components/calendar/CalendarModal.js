@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux'
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew } from '../../actions/events';
+import { eventAddNew, eventClearActiveEvent } from '../../actions/events';
 
 const customStyles = {
     content : {
@@ -39,12 +39,23 @@ export const CalendarModal = () => {
 
     // const [isOpen, setIsOpen] = useState(true)
     const { modalOpen } = useSelector( state => state.ui );
+    const { activeEvent } = useSelector( state => state.calendar );
     const [dateStart, setDateStart] = useState( now.toDate() )
     const [dateEnd, setDateEnd] = useState( end_date.toDate() )
     const [titleValid, setTitleValid] = useState(true)
     const [formValues, setFormValues] = useState( initEvent )
 
     const { notes, title, start, end } = formValues
+
+    useEffect(() => {
+
+        if(activeEvent){
+            setFormValues(activeEvent)
+        }
+
+
+    }, [activeEvent])
+
     // del evento obtengo el target
     const handleInputChange = ({ target }) => {
         // ...formValues -> Es para mantener todos los demas valores del objeto formValues
@@ -56,6 +67,7 @@ export const CalendarModal = () => {
 
     const closeModal = () => {
         dispatch( uiCloseModal() )
+        dispatch( eventClearActiveEvent() )
         setFormValues(initEvent)
         //setIsOpen(false)
     }
