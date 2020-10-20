@@ -25,6 +25,14 @@ const customStyles = {
   const end_date = now.clone().add(1,'hours')
   //moment() 8:45:50
 
+    //   Valores iniciales del formulario
+    const initEvent = {
+        title: '',
+        notes: '',
+        start: now.toDate(),
+        end: end_date.toDate()
+    }
+
 
 export const CalendarModal = () => {
     const dispatch = useDispatch();
@@ -34,12 +42,7 @@ export const CalendarModal = () => {
     const [dateStart, setDateStart] = useState( now.toDate() )
     const [dateEnd, setDateEnd] = useState( end_date.toDate() )
     const [titleValid, setTitleValid] = useState(true)
-    const [formValues, setFormValues] = useState({
-        title: 'Evento',
-        notes: '',
-        start: now.toDate(),
-        end: end_date.toDate()
-    })
+    const [formValues, setFormValues] = useState( initEvent )
 
     const { notes, title, start, end } = formValues
     // del evento obtengo el target
@@ -53,6 +56,7 @@ export const CalendarModal = () => {
 
     const closeModal = () => {
         dispatch( uiCloseModal() )
+        setFormValues(initEvent)
         //setIsOpen(false)
     }
 

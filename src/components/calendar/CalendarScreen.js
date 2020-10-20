@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 
@@ -21,22 +21,24 @@ const localizer = momentLocalizer(moment)
 
 
 
-const myEventsList = [{
-    title: 'Cumpleaños del jefe',
-    start: moment().toDate(),
-    end: moment().add( 2, 'hours' ).toDate(),
-    bgcolor: '#fafafa',
-    notes:'Comprar el pastel',
-    user: {
-        _id: '123',
-        name: 'Amnhed'
-    }
+// const myEventsList = [{
+//     title: 'Cumpleaños del jefe',
+//     start: moment().toDate(),
+//     end: moment().add( 2, 'hours' ).toDate(),
+//     bgcolor: '#fafafa',
+//     notes:'Comprar el pastel',
+//     user: {
+//         _id: '123',
+//         name: 'Amnhed'
+//     }
 
-}]
+// }]
 
 export const CalendarScreen = () => {
 
     const dispatch = useDispatch();
+    const { events } = useSelector( state => state.calendar );
+    
 
 
     const [ lastView, setLastView ] = useState( localStorage.getItem('lastView') || 'month' );
@@ -45,14 +47,14 @@ export const CalendarScreen = () => {
     const onDoubleClick = (e) => {
         console.log(e);
         dispatch( uiOpenModal() )
-        console.log('doble clicl');
+
     }
 
     const onSelectEvent = (e) => {
         console.log('on selected');
         console.log(e);
         dispatch( eventSetActive(e) )
-        dispatch( uiOpenModal() )
+
         //dispatch( uiOpenModal() )
     }
 
@@ -82,7 +84,7 @@ export const CalendarScreen = () => {
             <Navbar />
             <Calendar
                 localizer={localizer}
-                events={myEventsList}
+                events={events}
                 startAccessor="start"
                 endAccessor="end"
                 style={{ height: 500 }}
