@@ -51,6 +51,9 @@ export const CalendarModal = () => {
 
         if(activeEvent){
             setFormValues(activeEvent)
+        }else{
+            // Si eliminamos el evento activo debemos borrar los valores de formulario
+            setFormValues(initEvent)
         }
 
 
@@ -134,7 +137,7 @@ export const CalendarModal = () => {
           className="modal"
           overlayClassName="modal-fondo"
         >
-            <h1> Nuevo evento </h1>
+            <h1> { (activeEvent) ? 'Editar evento': 'Nuevo evento' }  </h1>
             <hr />
             <form 
                 className="container"
