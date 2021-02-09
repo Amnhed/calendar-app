@@ -4,6 +4,10 @@ import { CalendarApp } from './CalendarApp';
 
 import './styles.css'
 
+//Imprimir las variables de entorno de archivo
+//env.development
+console.log(process.env)
+
 ReactDOM.render(
     <CalendarApp />,
   document.getElementById('root')
