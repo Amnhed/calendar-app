@@ -14,7 +14,6 @@ const fetchSinToken = ( endpoint, data, method = 'GET' ) => {
             body: JSON.stringify( data )
         });
     }
-
 }
 
 export {
