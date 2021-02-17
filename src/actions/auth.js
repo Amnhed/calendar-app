@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { fetchSinToken } from "../helpers/fetch"
 import { types } from "../types/types";
 
@@ -18,6 +19,8 @@ export const startLogin = ( email, password ) => {
                 uid:body.uid,
                 name: body.name
             }) )
+        } else {
+            Swal.fire('Error', body.msg, 'error')
         }
     }
 }
