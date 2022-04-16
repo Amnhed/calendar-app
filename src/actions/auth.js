@@ -4,7 +4,32 @@ import { types } from "../types/types";
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
+        //llama el end point api 'auth'
         const resp = await fetchSinToken( 'auth', { email,password }, 'POST');
+        const body = await resp.json();
+        //console.log(body)
+        //SI el ok del reponse regreso true
+        if( body.ok ) {
+            //guardo en el local storage el token y la hora no es inf sensisble por que no la pueden modificar
+            //guardo el token en el local storage
+            localStorage.setItem('token', body.token);
+            //y la hora en que se guardo
+            localStorage.setItem('token-init-date', new Date().getTime());
+
+            dispatch( login({
+                uid:body.uid,
+                name: body.name
+            }) )
+        } else {
+            Swal.fire('Error', body.msg, 'error')
+        }
+    }
+}
+
+export const startRegister = (email,password, name) =>{
+    return async( dispatch ) => {
+        //llama el end point api 'auth'
+        const resp = await fetchSinToken( 'auth/new', { email,password, name }, 'POST');
         const body = await resp.json();
         //console.log(body)
         //SI el ok del reponse regreso true
