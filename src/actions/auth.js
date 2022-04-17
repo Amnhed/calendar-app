@@ -54,10 +54,10 @@ export const startRegister = (email,password, name) =>{
 //revisar expiracion del token GET
 export const startCheking = () =>{
     return async( dispatch ) => {
-        //llama el end point api 'auth/renew'
-        const resp = await fetchConToken( 'auth/renew');
+        //llama el end point api 'auth/renew' 'GET'
+        const resp = await fetchConToken( 'auth/renew' );
         const body = await resp.json();
-        //console.log(body)
+        console.log(body)
         //SI el ok del reponse regreso true
         if( body.ok ) {
             //guardo en el local storage el token y la hora no es inf sensisble por que no la pueden modificar
@@ -71,7 +71,10 @@ export const startCheking = () =>{
                 name: body.name
             }) )
         } else {
+            //si el token no es correcto
+
             Swal.fire('Error', body.msg, 'error')
+            //cambio el checking a false
             dispatch( checkingFinish() );
         }
     }

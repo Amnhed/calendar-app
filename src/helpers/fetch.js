@@ -19,7 +19,7 @@ const fetchSinToken = ( endpoint, data, method = 'GET' ) => {
 const fetchConToken = ( endpoint, data, method = 'GET' ) => {
     const url = `${ baseUrl }/${ endpoint }`;
     //recupero el token si es null le asigno string vacio
-    const token = localStorage.getItem() || '';
+    const token = localStorage.getItem('token') || '';
     //envio los header en el metodo GET
     if ( method === 'GET' ) {
         return fetch( url,{
@@ -27,7 +27,7 @@ const fetchConToken = ( endpoint, data, method = 'GET' ) => {
             headers:{
                 'x-token':token
             },
-        } )
+        });
     }  else {
         return fetch( url, {
             method,
