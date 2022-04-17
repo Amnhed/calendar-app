@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { fetchSinToken } from "../helpers/fetch"
+import { fetchConToken, fetchSinToken } from "../helpers/fetch"
 import { types } from "../types/types";
 
 export const startLogin = ( email, password ) => {
@@ -26,10 +26,11 @@ export const startLogin = ( email, password ) => {
     }
 }
 
+//registro de usuario
 export const startRegister = (email,password, name) =>{
     return async( dispatch ) => {
         //llama el end point api 'auth'
-        const resp = await fetchSinToken( 'auth/new', { email,password, name }, 'POST');
+        const resp = await fetchConToken( 'auth/new', { email,password, name }, 'POST');
         const body = await resp.json();
         //console.log(body)
         //SI el ok del reponse regreso true
@@ -49,6 +50,39 @@ export const startRegister = (email,password, name) =>{
         }
     }
 }
+
+//revisar expiracion del token GET
+export const startCheking = () =>{
+    return async( dispatch ) => {
+        //llama el end point api 'auth/renew'
+        const resp = await fetchConToken( 'auth/renew');
+        const body = await resp.json();
+        //console.log(body)
+        //SI el ok del reponse regreso true
+        if( body.ok ) {
+            //guardo en el local storage el token y la hora no es inf sensisble por que no la pueden modificar
+            //guardo el token en el local storage
+            localStorage.setItem('token', body.token);
+            //y la hora en que se guardo
+            localStorage.setItem('token-init-date', new Date().getTime());
+
+            dispatch( login({
+                uid:body.uid,
+                name: body.name
+            }) )
+        } else {
+            Swal.fire('Error', body.msg, 'error')
+            dispatch( checkingFinish() );
+        }
+    }
+
+}
+
+//se implementa revisar expiracion  auth.jsdel token GET linea74
+//declaron en authReducer.js
+const checkingFinish = () => ({
+    type: types.authCheckingFinish
+})
 
 //Accion syncrona solo la ocupo aqui
 const  login = ( user ) => ({
