@@ -10,7 +10,6 @@ export const types = {
     eventDeleted: '[event] Delete event',
 
     //Autentificacion el nombre dentro de  '' debe ser unico
-    authChecking: '[auth] Checking login state',
     authCheckingFinish: '[auth] Finish checking login state',
     authStartLogin: '[auth] Start login',
     authLogin: '[auth] Login',
