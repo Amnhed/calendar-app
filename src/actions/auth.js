@@ -92,3 +92,12 @@ const  login = ( user ) => ({
     type: types.authLogin,
     payload: user
 })
+//limpio el localSTorage y llamo logout linea 103
+export const startLogout = () => {
+    return ( dispatch ) => {
+        localStorage.clear();
+        dispatch( logout());
+    }
+}
+
+const logout = () => ({ type:types.authLogout})
