@@ -2,14 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { CalendarApp } from './CalendarApp';
 
-import './styles.css'
-
-//Imprimir las variables de entorno de archivo
-//env.development
-console.log(process.env)
+import './styles.css';
 
 ReactDOM.render(
     <CalendarApp />,
   document.getElementById('root')
 );
-

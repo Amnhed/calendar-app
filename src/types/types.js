@@ -1,21 +1,26 @@
+
 export const types = {
-    uiOpenModal: '[ui] Open Modal',
-    uiCloseModal: '[ui] Close Modal',
+
+    uiOpenModal: '[ui] Open modal',
+    uiCloseModal: '[ui] Close modal',
+
     
     eventSetActive: '[event] Set Active',
-    eventStartAddNew: '[event] Start add New',
+    eventLogout: '[event] Logout event',
+    
+    evetStartAddNew: '[event] Start add new',
     eventAddNew: '[event] Add new',
-    eventClearActiveEvent: '[event] Clear Event',
-    eventUpdated: '[event] Update event',
-    eventDeleted: '[event] Delete event',
+    eventClearActiveEvent: '[event] Clear active event',
+    eventUpdated: '[event] Event updated',
+    eventDeleted: '[event] Event deleted',
+    eventLoaded: '[event] Events loaded',
 
-    //Autentificacion el nombre dentro de  '' debe ser unico
 
-    //saber si el toekn es correcto
     authCheckingFinish: '[auth] Finish checking login state',
     authStartLogin: '[auth] Start login',
     authLogin: '[auth] Login',
-    authStartRegister: '[auth] Start register',
-    authStartTokenRenew: '[auth] Start token renew',
-    authLogout: '[auth] Logout'
+    authStartRegister: '[auth] Start Register',
+    authStartStartTokenRenew: '[auth] Start token renew',
+    authLogout: '[auth] Logout',
+
 }
